@@ -1,0 +1,26 @@
+<project name="site" basedir="." default="compile">
+    <path id="class.path">
+        <fileset dir="lib">
+            <include name="**/*"/>
+        </fileset>
+    </path>
+    <target name="compile">
+        <javac srcdir="sources" destdir="classes"
+            includes="**/*" includeantruntime="false"
+            debug="true" debuglevel="lines,vars,source">
+            <classpath refid="class.path"/>
+        </javac>
+    </target>
+    <target name="run" depends="compile">
+        <java classname="site.Bootstrap" fork="true"
+            classpathref="class.path">
+            <classpath>
+                <pathelement location="classes/"/>
+            </classpath>
+        </java>
+    </target>
+    <target name="clean">
+        <delete dir="classes" quiet="true"/>
+        <mkdir dir="classes"/>
+    </target>
+</project>
